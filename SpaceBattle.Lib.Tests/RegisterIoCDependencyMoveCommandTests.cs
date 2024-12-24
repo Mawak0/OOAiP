@@ -20,7 +20,7 @@ public class RegisterIoCDependencyMoveCommandTests
         var mockImoving = new Mock<IMoving>();
         Ioc.Resolve<App.ICommand>("IoC.Register", "Adapters.IMovingObject", (object[] args) => mockImoving.Object).Execute();
 
-        var res = Ioc.Resolve<ICommand>("Commands.Move");
+        var res = Ioc.Resolve<ICommand>("Commands.Move", new object());
 
         Assert.IsType<MoveCommand>(res);
 
