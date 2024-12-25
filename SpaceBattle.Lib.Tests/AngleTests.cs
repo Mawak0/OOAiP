@@ -95,7 +95,7 @@ public class AngleTests
         Assert.Equal(1, Math.Sin(angle1));
     }
 
-        [Fact]
+    [Fact]
     public void Execute_Cos()
     {
         Angle angle1 = new Angle(4, 8);
