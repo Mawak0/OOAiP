@@ -27,7 +27,7 @@ public class AngleTests
     {
         var angle1 = new Angle(15, 8);
         var angle2 = new Angle(23, 8);
-        Assert.True(angle1 == angle2);
+        Assert.False(angle1 == angle2);
     }
 
     [Fact]
@@ -49,8 +49,9 @@ public class AngleTests
     [Fact]
     public void Execute_Hash()
     {
-        var angle = new Angle(1, 8);
-        Assert.True(angle.GetHashCode() != 0);
+        var angle1 = new Angle(1, 8);
+        var angle2 = new Angle(1, 8);
+        Assert.True(angle1.GetHashCode() == angle2.GetHashCode());
     }
 
     [Fact]
@@ -88,9 +89,16 @@ public class AngleTests
     }
 
     [Fact]
-    public void Execute_ToDouble()
+    public void Execute_Sin()
+    {
+        Angle angle1 = new Angle(2, 8);
+        Assert.Equal(1, Math.Sin(angle1));
+    }
+
+        [Fact]
+    public void Execute_Cos()
     {
         Angle angle1 = new Angle(4, 8);
-        Assert.Equal(Math.PI, angle1.ToDouble());
+        Assert.Equal(-1, Math.Cos(angle1));
     }
 }
