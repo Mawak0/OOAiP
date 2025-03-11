@@ -8,7 +8,7 @@ public class RegisterIoCDependencyGameObject : ICommand
         Ioc.Resolve<App.ICommand>(
             "IoC.Register",
             "Game.Object",
-            (object[] args) => ((IDictionary<string, object>)Ioc.Resolve<object>("Game.Object.Repository"))[(string)args[0]]
+            (object[] args) => (Ioc.Resolve<IDictionary<string, object>>("Game.Object.Repository"))[(string)args[0]]
         ).Execute();
     }
 }

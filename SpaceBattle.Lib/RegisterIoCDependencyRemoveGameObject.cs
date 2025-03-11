@@ -9,11 +9,7 @@ public class RegisterIoCDependencyRemoveGameObject : ICommand
         Ioc.Resolve<App.ICommand>(
             "IoC.Register",
             "Game.Object.Remove",
-            new Func<object[], object>((object[] args) =>
-            {
-                ((IDictionary<string, object>)Ioc.Resolve<object>("Game.Object.Repository")).Remove((string)args[0]);
-                return true;
-            }
-        )).Execute();
+            (object[] args) => new RemoveGameObjectCommand((string)args[0])
+        ).Execute();
     }
 }
