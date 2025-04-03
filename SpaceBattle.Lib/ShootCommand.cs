@@ -16,7 +16,7 @@ public class ShootCommand : ICommand
         var torpedo = Ioc.Resolve<object>("Game.GetTorpedo");
         Ioc.Resolve<ICommand>("Game.TorpedoInitialization", torpedo, shooterObj).Execute();
 
-        var order = Ioc.Resolve<Dictionary<string, object>>("Game.CreateStartCommandOrder", torpedo);
+        var order = Ioc.Resolve<Dictionary<string, object>>("Game.CreateStartMoveOrder", torpedo);
 
         var startCommand = Ioc.Resolve<ICommand>("Actions.Start", order);
 

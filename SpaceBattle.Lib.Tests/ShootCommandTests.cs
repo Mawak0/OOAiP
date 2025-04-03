@@ -33,7 +33,7 @@ namespace SpaceBattle.Lib.Tests
             Ioc.Resolve<App.ICommand>("IoC.Register", "Game.GetTorpedo", (object[] args) => torpedo).Execute();
             var regTorpedoInit = new RegisterIoCDependencyTorpedoInitialization();
             regTorpedoInit.Execute();
-            var regCreateOrder = new RegisterIoCDependencyCreateStartCommandOrder();
+            var regCreateOrder = new RegisterIoCDependencyCreateStartMoveOrder();
             regCreateOrder.Execute();
 
             var shootCommandRegister = new RegisterIoCDependencyShootCommand();

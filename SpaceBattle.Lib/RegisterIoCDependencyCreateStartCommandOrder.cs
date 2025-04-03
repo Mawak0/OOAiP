@@ -1,13 +1,13 @@
 ﻿using App;
 namespace SpaceBattle.Lib;
 
-public class RegisterIoCDependencyCreateStartCommandOrder : ICommand
+public class RegisterIoCDependencyCreateStartMoveOrder : ICommand
 {
     public void Execute()
     {
         Ioc.Resolve<App.ICommand>(
                 "IoC.Register",
-                "Game.CreateStartCommandOrder",
+                "Game.CreateStartMoveOrder",
                 (object[] arg) =>
                 {
                     var order = new Dictionary<string, object>
