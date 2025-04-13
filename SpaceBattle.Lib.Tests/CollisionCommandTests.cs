@@ -35,6 +35,8 @@ namespace SpaceBattle.Lib.Tests
 
             var mockCommand = new Mock<ICommand>();
 
+            new RegisterIoCDependencyGetVectorDifference().Execute();
+
             Ioc.Resolve<App.ICommand>("IoC.Register", "Game.IsCollision", (object[] args) => (object)true).Execute();
 
             var collisionCommand = new CollisionCommand(
@@ -69,6 +71,8 @@ namespace SpaceBattle.Lib.Tests
 
             var mockCommand = new Mock<ICommand>();
 
+            new RegisterIoCDependencyGetVectorDifference().Execute();
+
             Ioc.Resolve<App.ICommand>("IoC.Register", "Game.IsCollision", (object[] args) => (object)false).Execute();
 
             var collisionCommand = new CollisionCommand(
@@ -88,6 +92,8 @@ namespace SpaceBattle.Lib.Tests
 
             var mockFirstObj = new Mock<IColliding>();
             mockFirstObj.SetupGet(o => o.Position).Throws<InvalidOperationException>();
+
+            new RegisterIoCDependencyGetVectorDifference().Execute();
 
             var mockSecondObj = new Mock<IColliding>();
             var mockCommand = new Mock<ICommand>();
