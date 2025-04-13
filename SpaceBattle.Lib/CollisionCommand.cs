@@ -17,15 +17,17 @@ public class CollisionCommand : ICommand
     }
     public void Execute()
     {
-
-        var deltaPosition = Ioc.Resolve<Array>("Game.GetVectorDifference", firstObj.Position, secondObj.Position);
-
-        var deltaVelocity = Ioc.Resolve<Array>("Game.GetVectorDifference", firstObj.Velocity, secondObj.Velocity);
-
-        var isCollision = Ioc.Resolve<bool>("Game.IsCollision", deltaPosition, deltaVelocity, firstObj.Shape, secondObj.Shape);
-        if (isCollision)
+        if (Ioc.Resolve<bool>("Game.IsObjectsInOneSquare", firstObj.Position, secondObj.Position))
         {
-            command.Execute();
+            var deltaPosition = Ioc.Resolve<Array>("Game.GetVectorDifference", firstObj.Position, secondObj.Position);
+
+            var deltaVelocity = Ioc.Resolve<Array>("Game.GetVectorDifference", firstObj.Velocity, secondObj.Velocity);
+
+            var isCollision = Ioc.Resolve<bool>("Game.IsCollision", deltaPosition, deltaVelocity, firstObj.Shape, secondObj.Shape);
+            if (isCollision)
+            {
+                command.Execute();
+            }
         }
     }
 }
