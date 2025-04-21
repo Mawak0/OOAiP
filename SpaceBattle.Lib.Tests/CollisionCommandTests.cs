@@ -42,7 +42,6 @@ namespace SpaceBattle.Lib.Tests
             Ioc.Resolve<App.ICommand>("IoC.Register", "Game.IsCollision",
                 (object[] args) => (object)true).Execute();
 
-            
             new RegisterIoCDependencyCollisionCommand().Execute();
 
             var collisionCommand = Ioc.Resolve<ICommand>("Game.CollisionCommand",
