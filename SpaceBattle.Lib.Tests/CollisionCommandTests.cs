@@ -42,7 +42,10 @@ namespace SpaceBattle.Lib.Tests
             Ioc.Resolve<App.ICommand>("IoC.Register", "Game.IsCollision",
                 (object[] args) => (object)true).Execute();
 
-            var collisionCommand = new CollisionCommand(
+            
+            new RegisterIoCDependencyCollisionCommand().Execute();
+
+            var collisionCommand = Ioc.Resolve<ICommand>("Game.CollisionCommand",
                 mockFirstObj.Object,
                 mockSecondObj.Object,
                 mockCommand.Object
@@ -81,7 +84,9 @@ namespace SpaceBattle.Lib.Tests
             Ioc.Resolve<App.ICommand>("IoC.Register", "Game.IsCollision",
                 (object[] args) => (object)false).Execute();
 
-            var collisionCommand = new CollisionCommand(
+            new RegisterIoCDependencyCollisionCommand().Execute();
+
+            var collisionCommand = Ioc.Resolve<ICommand>("Game.CollisionCommand",
                 mockFirstObj.Object,
                 mockSecondObj.Object,
                 mockCommand.Object
