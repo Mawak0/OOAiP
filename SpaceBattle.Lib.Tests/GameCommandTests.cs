@@ -52,7 +52,8 @@ public class GameCommandTests
             "Game.ExceptionHandle",
             (object[] obj) => new object()
         ).Execute();
-        Ioc.Resolve<ICommand>("Commands.RegisterNewGameDependenciesCommand", depsToReg).Execute();
+
+        Ioc.Resolve<MCommand>("Commands.Macro", depsToReg).Execute();
 
         Ioc.Resolve<App.ICommand>("IoC.Scope.Current.Set", oldScope).Execute();
 
@@ -109,7 +110,7 @@ public class GameCommandTests
             "Game.ExceptionHandle",
             (object[] obj) => mockCmdHandler.Object
         ).Execute();
-        Ioc.Resolve<ICommand>("Commands.RegisterNewGameDependenciesCommand", depsToReg).Execute();
+        Ioc.Resolve<MCommand>("Commands.Macro", depsToReg).Execute();
 
         Ioc.Resolve<App.ICommand>("IoC.Scope.Current.Set", oldScope).Execute();
 
