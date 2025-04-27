@@ -14,7 +14,7 @@ public class GameCommand : ICommand
         var oldScope = Ioc.Resolve<object>("IoC.Scope.Current");
         Ioc.Resolve<App.ICommand>("IoC.Scope.Current.Set", gameScope).Execute();
 
-        while (Ioc.Resolve<bool>("Game.ShouldLoopRun"))
+        while (Ioc.Resolve<bool>("Game.ShouldLoopRun") && Ioc.Resolve<bool>("Game.HaveTimeToGame"))
         {
             Ioc.Resolve<Action>("Game.Behaviour", gameScope)();
         }

@@ -7,7 +7,7 @@ public class RegisterIoCDependencyTimeQuant : ICommand
     {
         Ioc.Resolve<App.ICommand>(
             "IoC.Register",
-            "Game.ShouldLoopRun",
+            "Game.HaveTimeToGame",
             (object[] _) => (object)!Ioc.Resolve<ITimeCounting>("Game.EndOfTime").isEndOfTime()
         ).Execute();
     }
