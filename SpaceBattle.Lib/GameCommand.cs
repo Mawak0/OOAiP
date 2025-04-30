@@ -4,9 +4,12 @@ namespace SpaceBattle.Lib;
 public class GameCommand : ICommand
 {
     private readonly object gameScope;
-    public GameCommand(object gameScope)
+    private readonly ITimerService timerService;
+
+    public GameCommand(object gameScope, ITimerService timerService)
     {
         this.gameScope = gameScope;
+        this.timerService = timerService;
     }
 
     public void Execute()
@@ -14,7 +17,9 @@ public class GameCommand : ICommand
         var oldScope = Ioc.Resolve<object>("IoC.Scope.Current");
         Ioc.Resolve<App.ICommand>("IoC.Scope.Current.Set", gameScope).Execute();
 
-        while (Ioc.Resolve<bool>("Game.ShouldLoopRun") && Ioc.Resolve<bool>("Game.HaveTimeToGame"))
+        timerService.StartTimer(new TimeSpan(100)); 
+
+        while (Ioc.Resolve<bool>("Game.ShouldLoopRun"))
         {
             Ioc.Resolve<Action>("Game.Behaviour", gameScope)();
         }
