@@ -25,7 +25,7 @@ public class RegisterIoCDependencyShouldLoopRun : ICommand
                 var queue = Ioc.Resolve<ICanBeEmpty>("Game.Queue");
                 var timerService = Ioc.Resolve<ITimerService>("Game.TimerService");
 
-                return !queue.isEmpty() && !timerService.IsTimeoutReached;
+                return (object)(!queue.isEmpty() && !timerService.IsTimeoutReached);
             }).Execute();
     }
 }

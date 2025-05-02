@@ -8,6 +8,6 @@ public class RegisterIoCDependencyCreateGame : ICommand
         Ioc.Resolve<App.ICommand>(
                 "IoC.Register",
                 "Commands.CreateGame",
-                (object[] args) => new GameCommand(args[0])).Execute();
+                (object[] args) => new GameCommand(args[0], (TimerService) args[1])).Execute();
     }
 }
