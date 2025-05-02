@@ -17,7 +17,7 @@ public class RegisterIoCDependencyShouldLoopRun : ICommand
 {
     public void Execute()
     {
-        Ioc.Resolve<ICommand>(
+        Ioc.Resolve<App.ICommand>(
             "IoC.Register",
             "Game.ShouldLoopRun",
             (object[] _) =>

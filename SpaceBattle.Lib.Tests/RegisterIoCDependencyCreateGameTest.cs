@@ -17,6 +17,8 @@ public class RegisterIoCDependencyCreateGameTest
          .Setup(q => q.isEmpty())
          .Returns(false);
 
+        var mockTimerService = new Mock<ITimerService>();
+
         Ioc.Resolve<App.ICommand>(
                 "IoC.Register",
                 "Game.Queue",
@@ -33,7 +35,7 @@ public class RegisterIoCDependencyCreateGameTest
         var regBehaviour = new RegisterIoCDependencyGameCycleBehaviourCommand();
         regBehaviour.Execute();
 
-        var res = Ioc.Resolve<ICommand>("Commands.CreateGame", iocScope);
+        var res = Ioc.Resolve<ICommand>("Commands.CreateGame", iocScope, mockTimerService.Object);
 
         Assert.IsType<GameCommand>(res);
     }

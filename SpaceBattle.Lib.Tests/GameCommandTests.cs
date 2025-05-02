@@ -9,15 +9,20 @@ public class GameCommandTests
 
     public GameCommandTests()
     {
-        new InitCommand().Execute();
-        var iocScope = Ioc.Resolve<object>("IoC.Scope.Create");
-        Ioc.Resolve<App.ICommand>("IoC.Scope.Current.Set", iocScope).Execute();
+        // new InitCommand().Execute();
+        // var iocScope = Ioc.Resolve<object>("IoC.Scope.Create");
+        // Ioc.Resolve<App.ICommand>("IoC.Scope.Current.Set", iocScope).Execute();
     }
     [Fact]
     public void CorrectCommandExecution()
     {
+        new InitCommand().Execute();
+        var iocScope = Ioc.Resolve<object>("IoC.Scope.Create");
+        Ioc.Resolve<App.ICommand>("IoC.Scope.Current.Set", iocScope).Execute();
+
         var mockQueue = new Mock<ITake>();
         var mockCmd = new Mock<ICommand>();
+        var mockTimerService = new Mock<ITimerService>();
 
         bool isQueueEmpty = false;
 
@@ -53,25 +58,37 @@ public class GameCommandTests
             (object[] obj) => new object()
         ).Execute();
 
-        Ioc.Resolve<MCommand>("Commands.Macro", depsToReg).Execute();
+        var registerIoCDependencyMacroCommand = new RegisterIoCDependencyMacroCommand();
+        registerIoCDependencyMacroCommand.Execute();
+        Ioc.Resolve<MCommand>("Commands.Macro", depsToReg.Select(d => d as ICommand).ToArray()).Execute();
+        // Ioc.Resolve<MCommand>("Commands.Macro", depsToReg).Execute();
 
         Ioc.Resolve<App.ICommand>("IoC.Scope.Current.Set", oldScope).Execute();
 
         var RegCreateGame = new RegisterIoCDependencyCreateGame();
         RegCreateGame.Execute();
 
-        var game = Ioc.Resolve<ICommand>("Commands.CreateGame", gameScope);
+        var timeSpanRegCommand = new RegisterIoCTimeSpan();
+        timeSpanRegCommand.Execute();
+
+        var game = Ioc.Resolve<ICommand>("Commands.CreateGame", gameScope, mockTimerService.Object);
         game.Execute();
 
         mockCmd.Verify(c => c.Execute(), Times.Once);
+
+        // ResetCurrentScope(iocScope);
     }
 
     [Fact]
     public void ExceptionThrowsTest()
     {
+        new InitCommand().Execute();
+        var iocScope = Ioc.Resolve<object>("IoC.Scope.Create");
+        Ioc.Resolve<App.ICommand>("IoC.Scope.Current.Set", iocScope).Execute();
 
         var mockQueue = new Mock<ITake>();
         var mockCmd = new Mock<ICommand>();
+        var mockTimerService = new Mock<ITimerService>();
         var exceptionCounter = 0;
         var mockCmdHandler = new Mock<ICommand>();
         mockCmdHandler.Setup(cmd => cmd.Execute())
@@ -110,14 +127,21 @@ public class GameCommandTests
             "Game.ExceptionHandle",
             (object[] obj) => mockCmdHandler.Object
         ).Execute();
-        Ioc.Resolve<MCommand>("Commands.Macro", depsToReg).Execute();
+
+        var registerIoCDependencyMacroCommand = new RegisterIoCDependencyMacroCommand();
+        registerIoCDependencyMacroCommand.Execute();
+        
+        Ioc.Resolve<MCommand>("Commands.Macro", depsToReg.Select(d => d as ICommand).ToArray()).Execute();
 
         Ioc.Resolve<App.ICommand>("IoC.Scope.Current.Set", oldScope).Execute();
 
         var RegCreateGame = new RegisterIoCDependencyCreateGame();
         RegCreateGame.Execute();
 
-        var game = Ioc.Resolve<ICommand>("Commands.CreateGame", gameScope);
+        var timeSpanRegCommand = new RegisterIoCTimeSpan();
+        timeSpanRegCommand.Execute();
+
+        var game = Ioc.Resolve<ICommand>("Commands.CreateGame", gameScope, mockTimerService.Object);
         game.Execute();
 
         mockQueue.Verify(queue => queue.Take(), Times.Once);
@@ -125,5 +149,13 @@ public class GameCommandTests
         mockCmd.Verify(cmd => cmd.Execute(), Times.Once);
 
         Assert.Equal(1, exceptionCounter);
+
+        // ResetCurrentScope(iocScope);
+    }
+
+    private void ResetCurrentScope(object scope)
+    {
+        Ioc.Resolve<App.ICommand>("IoC.Scope.Current.Set", scope).Execute();
     }
 }
+
