@@ -2,15 +2,15 @@
 
 public class TimerService : ITimerService
 {
-    private DateTime _startTime;
-    private TimeSpan _timeout;
+    public DateTime startTime;
+    public TimeSpan timeout;
 
     public bool IsTimeoutReached { get; private set; }
 
-    public void StartTimer(TimeSpan timeout)
+    public void StartTimer(TimeSpan time)
     {
-        _startTime = DateTime.Now;
-        _timeout = timeout;
+        startTime = DateTime.Now;
+        timeout = time;
         Task.Run(async () =>
         {
             await Task.Delay(timeout);
