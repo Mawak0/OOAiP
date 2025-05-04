@@ -1,4 +1,4 @@
-using App;
+﻿using App;
 using App.Scopes;
 using Xunit;
 
@@ -17,7 +17,7 @@ namespace SpaceBattle.Lib.Tests
             registerCmd.Execute();
 
             var result = Ioc.Resolve<TimeSpan>("Game.TimeSpan");
-   
+
             Assert.Equal(new TimeSpan(0, 0, 200), result);
         }
 

@@ -5,9 +5,9 @@ public class RegisterIoCTimerService : ICommand
 {
     public void Execute()
     {
-        Ioc.Resolve<ITimerService>(
+        Ioc.Resolve<App.ICommand>(
             "IoC.Register",
             "Game.TimerService",
-            (object[] _) => new TimerService());
+            (object[] _) => new TimerService()).Execute();
     }
 }
