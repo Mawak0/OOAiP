@@ -6,13 +6,6 @@ namespace SpaceBattle.Lib;
 
 public class GameCommandTests
 {
-
-    public GameCommandTests()
-    {
-        // new InitCommand().Execute();
-        // var iocScope = Ioc.Resolve<object>("IoC.Scope.Create");
-        // Ioc.Resolve<App.ICommand>("IoC.Scope.Current.Set", iocScope).Execute();
-    }
     [Fact]
     public void CorrectCommandExecution()
     {
@@ -62,7 +55,6 @@ public class GameCommandTests
         var registerIoCDependencyMacroCommand = new RegisterIoCDependencyMacroCommand();
         registerIoCDependencyMacroCommand.Execute();
         Ioc.Resolve<MCommand>("Commands.Macro", depsToReg.Select(d => d as ICommand).ToArray()).Execute();
-        // Ioc.Resolve<MCommand>("Commands.Macro", depsToReg).Execute();
 
         Ioc.Resolve<App.ICommand>("IoC.Scope.Current.Set", oldScope).Execute();
 
@@ -76,8 +68,6 @@ public class GameCommandTests
         game.Execute();
 
         mockCmd.Verify(c => c.Execute(), Times.Once);
-
-        // ResetCurrentScope(iocScope);
     }
 
     [Fact]
@@ -151,8 +141,6 @@ public class GameCommandTests
         mockCmd.Verify(cmd => cmd.Execute(), Times.Once);
 
         Assert.Equal(1, exceptionCounter);
-
-        // ResetCurrentScope(iocScope);
     }
 }
 
