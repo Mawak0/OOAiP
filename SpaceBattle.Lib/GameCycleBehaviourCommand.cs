@@ -12,7 +12,7 @@ public class GameCycleBehaviourCommand : ICommand
         }
         catch (Exception exception)
         {
-            Ioc.Resolve<ICommand>("Game.ExceptionHandle", exception).Execute();
+            Ioc.Resolve<ICommand>("Game.ExceptionHandle", cmd, exception).Execute();
         }
     }
 }
