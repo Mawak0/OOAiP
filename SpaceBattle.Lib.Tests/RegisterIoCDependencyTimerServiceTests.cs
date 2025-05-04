@@ -25,3 +25,4 @@ namespace SpaceBattle.Lib.Tests
         }
     }
 }
+

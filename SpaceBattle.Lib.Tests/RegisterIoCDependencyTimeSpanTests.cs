@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 using App;
+=======
+﻿using App;
+>>>>>>> c173ec7a49059c4246b45cc517c2bfbf6611202c
 using App.Scopes;
 using Xunit;
 
@@ -17,7 +21,11 @@ namespace SpaceBattle.Lib.Tests
             registerCmd.Execute();
 
             var result = Ioc.Resolve<TimeSpan>("Game.TimeSpan");
+<<<<<<< HEAD
    
+=======
+
+>>>>>>> c173ec7a49059c4246b45cc517c2bfbf6611202c
             Assert.Equal(new TimeSpan(0, 0, 200), result);
         }
 
@@ -39,4 +47,8 @@ namespace SpaceBattle.Lib.Tests
             Assert.Equal(new TimeSpan(0, 0, 200), result);
         }
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> c173ec7a49059c4246b45cc517c2bfbf6611202c

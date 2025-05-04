@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 using Xunit;
+=======
+﻿using Xunit;
+>>>>>>> c173ec7a49059c4246b45cc517c2bfbf6611202c
 namespace SpaceBattle.Lib;
 
 public class TimerServiceTests
