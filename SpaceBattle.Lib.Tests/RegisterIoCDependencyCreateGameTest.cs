@@ -24,9 +24,6 @@ public class RegisterIoCDependencyCreateGameTest
                 "Game.Queue",
                 (object[] _) => mockQueue.Object).Execute();
 
-        var registerIoCRegisterNewGameDependenciesCommand = new RegisterIoCRegisterNewGameDependenciesCommand();
-        registerIoCRegisterNewGameDependenciesCommand.Execute();
-
         var registerIoCDependencyCreateGame = new RegisterIoCDependencyCreateGame();
         registerIoCDependencyCreateGame.Execute();
 

@@ -36,9 +36,6 @@ public class GameCommandTests
 
         var depsToReg = new List<ICommand> { registerIoCDependencyGameCycleBehaviourCommand, regShouldLoopRun, regNextCmd };
 
-        var registerIoCRegisterNewGameDependenciesCommand = new RegisterIoCRegisterNewGameDependenciesCommand();
-        registerIoCRegisterNewGameDependenciesCommand.Execute();
-
         var gameScope = Ioc.Resolve<object>("IoC.Scope.Create");
         var oldScope = Ioc.Resolve<object>("IoC.Scope.Current");
         Ioc.Resolve<App.ICommand>("IoC.Scope.Current.Set", gameScope).Execute();
@@ -103,9 +100,6 @@ public class GameCommandTests
         var regNextCmd = new RegisterIoCDependencyNextCommand();
 
         var depsToReg = new List<ICommand> { registerIoCDependencyGameCycleBehaviourCommand, regShouldLoopRun, regNextCmd };
-
-        var registerIoCRegisterNewGameDependenciesCommand = new RegisterIoCRegisterNewGameDependenciesCommand();
-        registerIoCRegisterNewGameDependenciesCommand.Execute();
 
         var gameScope = Ioc.Resolve<object>("IoC.Scope.Create");
         var oldScope = Ioc.Resolve<object>("IoC.Scope.Current");
