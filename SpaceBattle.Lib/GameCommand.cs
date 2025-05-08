@@ -1,5 +1,5 @@
-﻿using App;
-using System.Diagnostics;
+﻿using System.Diagnostics;
+using App;
 namespace SpaceBattle.Lib;
 
 public class GameCommand : ICommand

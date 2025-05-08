@@ -1,5 +1,4 @@
 ﻿using App;
-using Moq;
 namespace SpaceBattle.Lib;
 
 public class RegisterIoCDependencyShouldLoopRun : ICommand
@@ -15,7 +14,7 @@ public class RegisterIoCDependencyShouldLoopRun : ICommand
                 var spentTime = args[0];
                 var maxTimeSpan = Ioc.Resolve<TimeSpan>("Game.TimeSpan");
 
-                return (object)(!queue.isEmpty() && (long) spentTime < maxTimeSpan.Milliseconds);
+                return (object)(!queue.isEmpty() && (long)spentTime < maxTimeSpan.Milliseconds);
             }).Execute();
     }
 }
