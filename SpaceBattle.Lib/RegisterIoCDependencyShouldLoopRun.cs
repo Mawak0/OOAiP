@@ -14,7 +14,7 @@ public class RegisterIoCDependencyShouldLoopRun : ICommand
                 var spentTime = args[0];
                 var maxTimeSpan = Ioc.Resolve<TimeSpan>("Game.TimeSpan");
 
-                return (object)(!queue.isEmpty() && (long)spentTime < maxTimeSpan.Milliseconds);
+                return (object)(!queue.isEmpty() && (long)spentTime < maxTimeSpan.TotalMilliseconds);
             }).Execute();
     }
 }

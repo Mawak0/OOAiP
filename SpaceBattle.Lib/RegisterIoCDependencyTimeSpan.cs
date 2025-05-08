@@ -8,6 +8,6 @@ public class RegisterIoCTimeSpan : ICommand
         Ioc.Resolve<App.ICommand>(
             "IoC.Register",
             "Game.TimeSpan",
-            (object[] _args) => (object)new TimeSpan(0, 0, 200)).Execute();
+            (object[] _args) => (object)new TimeSpan(0, 0, 1)).Execute();
     }
 }

@@ -17,7 +17,7 @@ namespace SpaceBattle.Lib.Tests
             registerCmd.Execute();
 
             var result = Ioc.Resolve<TimeSpan>("Game.TimeSpan");
-            Assert.Equal(new TimeSpan(0, 0, 200), result);
+            Assert.Equal(new TimeSpan(0, 0, 1), result);
         }
 
         [Fact]
