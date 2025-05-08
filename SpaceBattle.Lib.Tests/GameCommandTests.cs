@@ -15,8 +15,6 @@ public class GameCommandTests
 
         var mockQueue = new Mock<ITake>();
         var mockCmd = new Mock<ICommand>();
-        // var mockTimerService = new Mock<ITimerService>();
-        // Ioc.Resolve<App.ICommand>("IoC.Register", "Game.TimerService", (object[] _) => mockTimerService.Object).Execute();
 
         bool isQueueEmpty = false;
 
@@ -76,8 +74,7 @@ public class GameCommandTests
 
         var mockQueue = new Mock<ITake>();
         var mockCmd = new Mock<ICommand>();
-        // var mockTimerService = new Mock<ITimerService>();
-        // Ioc.Resolve<App.ICommand>("IoC.Register", "Game.TimerService", (object[] _) => mockTimerService.Object).Execute();
+    
         var exceptionCounter = 0;
         var mockCmdHandler = new Mock<ICommand>();
         mockCmdHandler.Setup(cmd => cmd.Execute())
