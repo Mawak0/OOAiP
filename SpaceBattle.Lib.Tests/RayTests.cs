@@ -35,6 +35,6 @@ public class RayTests
 
         var ray = new Ray(origin, direction);
 
-        Assert.Equal(1.0, Math.Sqrt(ray.Direction.X * ray.Direction.X + ray.Direction.Y * ray.Direction.Y)); // Норма должна быть равна 1
+        Assert.Equal(1.0, Math.Sqrt(ray.Direction.X * ray.Direction.X + ray.Direction.Y * ray.Direction.Y));
     }
 }

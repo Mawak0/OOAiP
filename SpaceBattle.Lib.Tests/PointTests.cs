@@ -50,7 +50,7 @@ public class PointTests
     }
 
     [Fact]
-    public void Normalization_ReturnsNormalizedVector()
+    public void NormalizationTest()
     {
         var point = new Point(3, 4);
 
@@ -60,7 +60,7 @@ public class PointTests
     }
 
     [Fact]
-    public void CrossProduct_ReturnsCorrectValue()
+    public void CrossPointsTest()
     {
         var p1 = new Point(1, 2);
         var p2 = new Point(3, 4);
