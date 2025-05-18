@@ -5,22 +5,13 @@ public class CollisionDetector
 {
     public static List<Point> FindIntersections(Polygon poly1, Polygon poly2, Point velocity)
     {
-        var intersections = new List<Point>();
-
-        foreach (var vertex in poly1.Points)
-        {
-            var ray = new Ray(vertex, velocity);
-
-            foreach (var edge in poly2.Edges())
-            {
-                var intersection = RayIntersectsEdge(ray, edge.start, edge.end);
-
-                if (intersection != null)
-                {
-                    intersections.Add(intersection);
-                }
-            }
-        }
+        var intersections =
+            from vertex in poly1.Points
+            from edge in poly2.Edges()
+            let ray = new Ray(vertex, velocity)
+            let intersection = RayIntersectsEdge(ray, edge.start, edge.end)
+            where intersection != null
+            select intersection;
 
         return intersections.Distinct().ToList();
     }

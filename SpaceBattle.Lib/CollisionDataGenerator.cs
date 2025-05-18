@@ -22,9 +22,9 @@ public class CollisionDataGenerator : ICollisionDataGenerator
     public IList<int[]> GenerateCollisionData()
     {
         var shapesDict = (IDictionary<string, Polygon>)Ioc.Resolve<object>("Collision.GetPolygonDict");
-        var datasetLength = (int)Ioc.Resolve<int>("Collision.Dataset.Length");
-        var rawPolygon1 = (Polygon)shapesDict[shape1];
-        var polygon2 = (Polygon)shapesDict[shape2];
+        var datasetLength = Ioc.Resolve<int>("Collision.Dataset.Length");
+        var rawPolygon1 = shapesDict[shape1];
+        var polygon2 = shapesDict[shape2];
 
         return Enumerable.Range(0, datasetLength)
                         .Select(i =>
@@ -32,10 +32,9 @@ public class CollisionDataGenerator : ICollisionDataGenerator
                             var point0 = CreatePoint();
                             var velocity = CreatePoint();
 
-                            // Собираем список уникальных точек из кортежей
                             List<Point> points = rawPolygon1.Edges()
-                                                        .SelectMany(edge => new[] { edge.start, edge.end }) // Раскрываем пары в отдельные точки
-                                                        .Distinct()                                          // Удаляем дублирующиеся точки
+                                                        .SelectMany(edge => new[] { edge.start, edge.end })
+                                                        .Distinct()
                                                         .ToList();
 
                             for (int j = 0; j < points.Count; j++)
@@ -73,63 +72,3 @@ public class CollisionDataGenerator : ICollisionDataGenerator
     }
 }
 
-// public class CollisionDataGenerator
-// {
-//     private readonly Random rnd;
-
-//     public CollisionDataGenerator()
-//     {
-//         rnd = new Random();
-//     }
-
-//     public IList<int[]> GenerateCollisionData() {
-//         List<int[]> collisionDataList = new List<int[]>();
-//         var datasetLength = Ioc.Resolve<int>("Collision.Dataset.Length");
-//         var pointCount1 = Ioc.Resolve<int>("Collision.Dataset.PointCount.FirstShape");
-//         var pointCount2 = Ioc.Resolve<int>("Collision.Dataset.PointCount.SecondShape");
-//         for (int i = 0; i < datasetLength; i++) 
-//         {
-//             var polygon1 = CreateShape(pointCount1);
-//             var polygon2 = CreateShape(pointCount2);
-//             var velocity = CreateVelocity();
-
-//             var collisions = CollisionDetector.FindIntersections(polygon1, polygon2, velocity);
-//             if (collisions.Capacity > 0)
-//             {
-//                 var collisionLine = new List<int> {};
-//                 foreach (Polygon polygon in new Polygon[] {polygon1, polygon2}) {
-//                     foreach (Point p in polygon.Points) {
-//                         collisionLine.Add((int) p.X);
-//                         collisionLine.Add((int) p.Y);
-//                     }
-//                 }
-
-//                 collisionLine.Add((int) velocity.X);
-//                 collisionLine.Add((int) velocity.Y);
-//                 collisionDataList.Add(collisionLine.ToArray<int>());
-//             }
-//         }
-
-//         return collisionDataList;
-//     }
-
-//     public Polygon CreateShape(int anglesCount) {
-//         var fieldWidth = Ioc.Resolve<int>("Field.Width");
-//         var fieldHeight = Ioc.Resolve<int>("Field.Height");
-
-//         List<Point> points = new List<Point>();
-
-//         for (int i = 0; i < anglesCount; i++) 
-//         {
-//             points.Add(new Point(rnd.Next(0, fieldWidth), rnd.Next(0, fieldHeight)));
-//         }
-
-//         return new Polygon(points);
-//     }
-
-//     public Point CreateVelocity()
-//     {
-//         var quadrantSize = Ioc.Resolve<int>("Field.Quadrant.Size");
-//         return new Point(rnd.Next(0, quadrantSize), rnd.Next(0, quadrantSize));
-//     }
-// }

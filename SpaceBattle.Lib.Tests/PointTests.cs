@@ -1,6 +1,6 @@
 ﻿using Xunit;
 
-namespace SpaceBattle.Lib;
+namespace SpaceBattle.Lib.Tests;
 
 public class PointTests
 {

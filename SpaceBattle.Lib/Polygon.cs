@@ -11,9 +11,8 @@ public class Polygon
 
     public IEnumerable<(Point start, Point end)> Edges()
     {
-        for (int i = 0; i < Points.Count; i++)
-        {
-            yield return (Points[i], Points[(i + 1) % Points.Count]);
-        }
+        var result = Points.Select((point, i) => (point, Points[(i + 1) % Points.Count]));
+        return result;
+
     }
 }
