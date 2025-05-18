@@ -143,4 +143,26 @@ public class CollisionDataGeneratorTests
 
         Assert.Empty(collisionData);
     }
+
+    [Fact]
+    public void FirstShape_ReturnsCorrectValue()
+    {
+        var key1 = "shape1";
+        var key2 = "shape2";
+
+        var collisionDataGenerator = new CollisionDataGenerator(key1, key2);
+
+        Assert.Equal(key1, collisionDataGenerator.firstShape);
+    }
+
+    [Fact]
+    public void SecondShape_ReturnsCorrectValue()
+    {
+        var key1 = "shape1";
+        var key2 = "shape2";
+
+        var collisionDataGenerator = new CollisionDataGenerator(key1, key2);
+
+        Assert.Equal(key2, collisionDataGenerator.secondShape);
+    }
 }
