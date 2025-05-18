@@ -1,4 +1,4 @@
-namespace SpaceBattle.Lib;
+﻿namespace SpaceBattle.Lib;
 using System.Collections.Generic;
 
 public class CollisionDetector
