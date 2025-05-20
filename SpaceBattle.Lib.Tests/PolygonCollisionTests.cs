@@ -14,7 +14,7 @@ public class PolygonCollisionTests
 
         var collision = CollisionDetector.FindIntersections(firstPolygon, secondPolygon, v);
 
-        Assert.True(collision.Capacity > 0);
+        Assert.True(collision.Count > 0);
     }
 
     [Fact]
@@ -28,6 +28,6 @@ public class PolygonCollisionTests
 
         var collision = CollisionDetector.FindIntersections(firstPolygon, secondPolygon, v);
 
-        Assert.False(collision.Capacity > 0);
+        Assert.False(collision.Count > 0);
     }
 }

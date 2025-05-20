@@ -71,7 +71,7 @@ public class CollisionDataGeneratorTests
 
         List<int[]> collisionData = (List<int[]>)collisionDataGenerator.GenerateCollisionData();
 
-        Assert.True(collisionData.Capacity > 0);
+        Assert.True(collisionData.Count > 0);
     }
 
     [Fact]
