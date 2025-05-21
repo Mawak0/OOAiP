@@ -1,5 +1,7 @@
 ﻿namespace SpaceBattle.Lib;
+
 using System.Collections.Generic;
+using Microsoft.CodeAnalysis;
 
 public class CollisionDetector
 {
@@ -10,13 +12,13 @@ public class CollisionDetector
             from edge in poly2.Edges()
             let ray = new Ray(vertex, velocity)
             let intersection = RayIntersectsEdge(ray, edge.start, edge.end)
-            where intersection != null
-            select intersection;
+            where intersection.HasValue
+            select intersection.Value;
 
         return intersections.Distinct().ToList();
     }
 
-    private static Point? RayIntersectsEdge(Ray ray, Point start, Point end)
+    private static Optional<Point> RayIntersectsEdge(Ray ray, Point start, Point end)
     {
         var dir = ray.Direction;
         var diff = start - ray.Origin;
@@ -25,7 +27,7 @@ public class CollisionDetector
         double det = Point.Cross(dir, edgeDir);
         if (Math.Abs(det) < 1e-7)
         {
-            return null;
+            return default(Optional<Point>);
         }
 
         double t = Point.Cross(diff, edgeDir) / det;
@@ -33,9 +35,9 @@ public class CollisionDetector
 
         if (t >= 0 && u >= 0 && u <= 1)
         {
-            return ray.Origin + t * dir;
+            return new Optional<Point>(ray.Origin + t * dir);
         }
 
-        return null;
+        return default(Optional<Point>);
     }
 }
