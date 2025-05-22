@@ -13,58 +13,36 @@ public class QuadrantInspector
 
     public static bool Contain(List<int[]> list, int[] elem)
     {
-        foreach (int[] el in list)
-        {
-            if (el[0] == elem[0] && el[1] == elem[1])
-            {
-                return true;
-            }
-        }
-
-        return false;
+        return list.Any(el => el.SequenceEqual(elem)); // Используется SequenceEqual для сравнения массивов
     }
 
     public List<int[]> getQuadrants(IColliding obj)
     {
         var shapesDict = (IDictionary<string, Polygon>)Ioc.Resolve<object>("Collision.GetPolygonDict");
         var polygon = shapesDict[obj.Shape];
-        List<int[]> quadrants = new List<int[]>();
 
-        foreach (Point point in polygon.Points)
-        {
-            var xCoord = (int)point.X / (int)quadrantSize;
-            var yCoord = (int)point.Y / (int)quadrantSize;
-
-            int[] qCoords = { xCoord, yCoord };
-            if (!Contain(quadrants, qCoords))
-            {
-                quadrants.Add(qCoords);
-            }
-        }
-
-        return quadrants;
+        return polygon.Points
+                .Select(point =>
+                    (
+                        (int)point.X / (int)quadrantSize,
+                        (int)point.Y / (int)quadrantSize
+                    ))
+                .Distinct()
+                .Select(tuple => new[] { tuple.Item1, tuple.Item2 })
+                .ToList();
     }
-
     public bool InQuadrant(IColliding obj, int[] quadrantCoords)
     {
         var quadrants = getQuadrants(obj);
-
         return Contain(quadrants, quadrantCoords);
     }
 
     public List<IColliding> GetObjectsInSameSquare(int[] quadrantCoords)
     {
         var collidingObjectsList = (IList<IColliding>)Ioc.Resolve<object>("Collision.GetCollisionObjectsList");
-        List<IColliding> nearObjects = new List<IColliding>();
-        foreach (IColliding cObj in collidingObjectsList)
-        {
-            var objectQuadrants = getQuadrants(cObj);
-            if (Contain(objectQuadrants, quadrantCoords))
-            {
-                nearObjects.Add(cObj);
-            }
-        }
 
-        return nearObjects;
+        return collidingObjectsList.Where(
+                  cObj => Contain(getQuadrants(cObj), quadrantCoords)
+              ).ToList();
     }
 }
