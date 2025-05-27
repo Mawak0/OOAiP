@@ -13,7 +13,7 @@ public class QuadrantInspector
 
     public static bool Contain(List<int[]> list, int[] elem)
     {
-        return list.Any(el => el.SequenceEqual(elem)); // Используется SequenceEqual для сравнения массивов
+        return list.Any(el => el.SequenceEqual(elem));
     }
 
     public List<int[]> getQuadrants(IColliding obj)
@@ -31,18 +31,12 @@ public class QuadrantInspector
                 .Select(tuple => new[] { tuple.Item1, tuple.Item2 })
                 .ToList();
     }
-    public bool InQuadrant(IColliding obj, int[] quadrantCoords)
-    {
-        var quadrants = getQuadrants(obj);
-        return Contain(quadrants, quadrantCoords);
-    }
 
     public List<IColliding> GetObjectsInSameSquare(int[] quadrantCoords)
     {
         var collidingObjectsList = (IList<IColliding>)Ioc.Resolve<object>("Collision.GetCollisionObjectsList");
 
-        return collidingObjectsList.Where(
-                  cObj => Contain(getQuadrants(cObj), quadrantCoords)
+        return collidingObjectsList.Where(cObj => Contain(getQuadrants(cObj), quadrantCoords)
               ).ToList();
     }
 }

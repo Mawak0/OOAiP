@@ -44,11 +44,11 @@ public class QuadrantInspectorTests
     }
 
     [Fact]
-    public void CorrectQuadrantToObjectTest()
+    public void GetManyQuadrantsTest()
     {
         var key = "shape";
 
-        var polygon = new Polygon(new List<Point>() { new Point(1, 1), new Point(2, 2), new Point(1, 3) });
+        var polygon = new Polygon(new List<Point>() { new Point(1, 12), new Point(2, 2), new Point(1, 3) });
 
         var polygonDict = new Dictionary<string, Polygon> {
                             { key, polygon }
@@ -67,67 +67,9 @@ public class QuadrantInspectorTests
 
         mockColliding.SetupGet(o => o.Shape).Returns("shape");
 
-        var isInQuadrant = inspector.InQuadrant(mockColliding.Object, new[] { 0, 0 });
+        var result = inspector.getQuadrants(mockColliding.Object);
 
-        Assert.True(isInQuadrant);
-    }
-
-    [Fact]
-    public void CorrectSetQuadrantsToObjectTest()
-    {
-        var key = "shape";
-
-        var polygon = new Polygon(new List<Point>() { new Point(1, 1), new Point(2, 2), new Point(11, 3) });
-
-        var polygonDict = new Dictionary<string, Polygon> {
-                            { key, polygon }
-                        };
-
-        Ioc.Resolve<App.ICommand>(
-            "IoC.Register",
-            "Collision.GetPolygonDict",
-            (object[] args) => polygonDict
-        ).Execute();
-
-        Ioc.Resolve<App.ICommand>("IoC.Register", "Field.Quadrant.Size", (object[] args) => (object)10).Execute();
-
-        var inspector = new QuadrantInspector();
-        var mockColliding = new Mock<IColliding>();
-
-        mockColliding.SetupGet(o => o.Shape).Returns("shape");
-
-        var isInQuadrant = inspector.InQuadrant(mockColliding.Object, new[] { 1, 0 });
-
-        Assert.True(isInQuadrant);
-    }
-
-    [Fact]
-    public void CorrectFalseSetQuadrantsToObjectTest()
-    {
-        var key = "shape";
-
-        var polygon = new Polygon(new List<Point>() { new Point(1, 1), new Point(2, 2), new Point(11, 3) });
-
-        var polygonDict = new Dictionary<string, Polygon> {
-                            { key, polygon }
-                        };
-
-        Ioc.Resolve<App.ICommand>(
-            "IoC.Register",
-            "Collision.GetPolygonDict",
-            (object[] args) => polygonDict
-        ).Execute();
-
-        Ioc.Resolve<App.ICommand>("IoC.Register", "Field.Quadrant.Size", (object[] args) => (object)10).Execute();
-
-        var inspector = new QuadrantInspector();
-        var mockColliding = new Mock<IColliding>();
-
-        mockColliding.SetupGet(o => o.Shape).Returns("shape");
-
-        var isInQuadrant = inspector.InQuadrant(mockColliding.Object, new[] { 0, 1 });
-
-        Assert.False(isInQuadrant);
+        Assert.Equal(new List<int[]> { new[] { 0, 1 }, new[] { 0, 0 } }, result.Select(x => x.ToArray()).ToList());
     }
 
     [Fact]
