@@ -1,8 +1,8 @@
-namespace SpaceBattle.Lib.Tests;
+﻿namespace SpaceBattle.Lib.Tests;
 
-using Xunit;
 using App;
 using App.Scopes;
+using Xunit;
 
 public class RegisterIoCDependencyStorageCommandTest
 {
@@ -27,5 +27,4 @@ public class RegisterIoCDependencyStorageCommandTest
 
         Assert.IsType<AddToStorageCommand>(res);
     }
-
 }

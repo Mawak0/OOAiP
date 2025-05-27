@@ -1,4 +1,4 @@
-namespace SpaceBattle.Lib.Tests;
+﻿namespace SpaceBattle.Lib.Tests;
 
 using Xunit;
 
@@ -34,7 +34,7 @@ public class TreeTests
     [Fact]
     public void LastComparationTest()
     {
-        var four = new List<(int, int, int, int)> {(5, 8, 4, 1)};
+        var four = new List<(int, int, int, int)> { (5, 8, 4, 1) };
         var t = new Tree(four);
 
         Assert.False(t.Contains((5, 8, 4, 2)));
