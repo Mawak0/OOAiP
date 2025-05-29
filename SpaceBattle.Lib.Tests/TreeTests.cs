@@ -39,4 +39,19 @@ public class TreeTests
 
         Assert.False(t.Contains((5, 8, 4, 2)));
     }
+
+    [Fact]
+    public void ManyLevelsTest()
+    {
+        var four = new List<(int, int, int, int)>
+        {
+            (1, 2, 3, 4),
+            (1, 2, 3, 5),
+            (2, 3, 4, 5)
+        };
+        var t = new Tree(four);
+        Assert.True(t.Contains((1, 2, 3, 4)));
+        Assert.True(t.Contains((1, 2, 3, 5)));  
+        Assert.False(t.Contains((1, 2, 3, 6)));
+    }
 }
