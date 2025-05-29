@@ -51,7 +51,7 @@ public class TreeTests
         };
         var t = new Tree(four);
         Assert.True(t.Contains((1, 2, 3, 4)));
-        Assert.True(t.Contains((1, 2, 3, 5)));  
+        Assert.True(t.Contains((1, 2, 3, 5)));
         Assert.False(t.Contains((1, 2, 3, 6)));
     }
 }
